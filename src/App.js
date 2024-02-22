@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Cart from "./components/Cart/Cart";
+import Banner from "./components/Layout/Banner";
+import Navbar from "./components/Layout/Navbar";
+import FoodItemsList from "./components/Meals/FoodItemsList";
+import CartProvider from "./store/CartProvider";
+import AddMoreCandy from "./components/UI/AddMoreCandy";
 
 function App() {
+  const [cartOpen, setcartOpen] = useState(false);
+  const handleCartToggle = () => {
+    setcartOpen(!cartOpen);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>
+      {cartOpen && <Cart cartToggle={handleCartToggle} />}
+      <Navbar cartToggle={handleCartToggle} />
+      <Banner />
+
+      <FoodItemsList />
+    </CartProvider>
   );
 }
 
